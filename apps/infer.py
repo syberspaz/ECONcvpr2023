@@ -47,7 +47,7 @@ from lib.common.voxelize import VoxelGrid
 torch.backends.cudnn.benchmark = True
 
 if __name__ == "__main__":
-
+    
     # loading cfg file
     parser = argparse.ArgumentParser()
 
@@ -428,7 +428,7 @@ if __name__ == "__main__":
         del optimed_trans
 
         torch.cuda.empty_cache()
-
+        
         # ------------------------------------------------------------------------------------------------------------------
         # clothing refinement
 
@@ -510,7 +510,7 @@ if __name__ == "__main__":
                 with torch.no_grad():
                     sdf = ifnet.reconEngine(netG=ifnet.netG, batch=in_tensor)
                     verts_IF, faces_IF = ifnet.reconEngine.export_mesh(sdf)
-
+                    
                 if ifnet.clean_mesh_flag:
                     verts_IF, faces_IF = clean_mesh(verts_IF, faces_IF)
 
@@ -533,7 +533,7 @@ if __name__ == "__main__":
                 ).to(device)
                 sm = SubdivideMeshes(side_mesh)
                 side_mesh = register(BNI_object.F_B_trimesh, sm(side_mesh), device)
-
+                
             side_verts = torch.tensor(side_mesh.vertices).float().to(device)
             side_faces = torch.tensor(side_mesh.faces).long().to(device)
 
